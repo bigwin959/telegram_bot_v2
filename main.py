@@ -1,5 +1,8 @@
 # pip install python-telegram-bot==21.4
 
+import os
+from dotenv import load_dotenv
+
 from telegram import (
     Update,
     InlineKeyboardButton,
@@ -12,7 +15,14 @@ from telegram.ext import (
 )
 
 # ========== CONFIG ==========
-BOT_TOKEN = "8141858152:AAFK9PuN1cdy59l_xDM_pU68iMW_iKXFQZ8"  # ← 换成你的 Bot Token
+load_dotenv()
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+if not BOT_TOKEN:
+    raise RuntimeError("BOT_TOKEN is not set")
+
+application = ApplicationBuilder().token(BOT_TOKEN).build()  # ← 换成你的 Bot Token
 
 # 你的 guide-book HTML 页面地址
 GUIDE_URL = "https://fsguidebook.netlify.app/"  # ← 换成实际链接
