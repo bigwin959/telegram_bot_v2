@@ -201,11 +201,16 @@ async def handle_nu_details(update: Update, context: ContextTypes.DEFAULT_TYPE) 
     await query.edit_message_text(text=text1)
 
     # 图片（使用 file_id）
-    if CRICKET_STEPS_FILE_ID:
-        try:
-            await query.message.chat.send_photo(photo=CRICKET_STEPS_FILE_ID)
-        except Exception as e:
-            print(f"Error sending photo: {e}")
+    # 图片（使用 file_id）
+if CRICKET_STEPS_FILE_ID:
+    try:
+        await context.bot.send_photo(
+            chat_id=query.message.chat_id,
+            photo=CRICKET_STEPS_FILE_ID
+        )
+    except Exception as e:
+        print(f"Error sending photo: {e}")
+
 
     # 文字说明 2 + 按钮（新消息）
     await query.message.chat.send_message(
