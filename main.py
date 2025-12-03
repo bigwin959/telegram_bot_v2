@@ -36,7 +36,9 @@ from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     CallbackQueryHandler,
+    MessageHandler,
     ContextTypes,
+    filters,
 )
 
 # ========== CONFIG ==========
@@ -426,6 +428,14 @@ async def handle_back_to_ru1(update: Update, context: ContextTypes.DEFAULT_TYPE)
     )
 
 
+async def debug_photo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """收到图片时，把 file_id 打出来看看"""
+    if update.message and update.message.photo:
+        fid = update.message.photo[-1].file_id
+        print(f"DEBUG file_id: {fid}")
+        await update.message.reply_text(f"file_id:\n{fid}")
+
+
 # ===================== main 程序入口 =====================
 
 def main() -> None:
@@ -436,6 +446,8 @@ def main() -> None:
 
     # /start
     app.add_handler(CommandHandler("start", start))
+	app.add_handler(MessageHandler(filters.PHOTO, debug_photo))
+
 
     # 新用户 & 已注册入口
     app.add_handler(CallbackQueryHandler(cb_new_user, pattern=f"^{CB_NEW_USER}$"))
@@ -452,6 +464,7 @@ def main() -> None:
     app.add_handler(CallbackQueryHandler(handle_nu_details_support, pattern=f"^{CB_NU_DETAILS_SUPPORT}$"))
     app.add_handler(CallbackQueryHandler(handle_back_to_nu2, pattern=f"^{CB_BACK_TO_NU2}$"))
     app.add_handler(CallbackQueryHandler(handle_back_to_nu1, pattern=f"^{CB_BACK_TO_NU1}$"))
+
 
     # 已注册分支
     app.add_handler(CallbackQueryHandler(handle_ru_yes_bal, pattern=f"^{CB_RU_YES_BAL}$"))
