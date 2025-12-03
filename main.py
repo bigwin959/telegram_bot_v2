@@ -9,8 +9,6 @@ BIGWIN959 - 125% Cricket Activity Bot Flow (v2)
 
 # ===================== 可配置变量（全部留空，等你填） =====================
 
-BOT_TOKEN = "8535338463:AAFhtRzU0f83U_hDsZL8eyxkK5J55ldeabg"  # 你的 Telegram Bot Token
-
 REGISTER_URL = "https://channel2.bigwin959.com/register.html"        # 注册页面 URL
 ANDROID_APP_URL = "https://images.738382910483.com/wsd-images-prod/bigbdtf7/app_pack/android/bigbdtf7_2.4.76_20251105095117.apk"     # Android APP 下载链接
 IOS_APP_URL = "https://images.738382910483.com/wsd-images-prod/bigbdtf7/app_pack/mobileconfig/bigbdtf7_2.4.3_20251105095116.mobileconfig"         # iOS APP 下载链接
