@@ -18,7 +18,7 @@ TELEGRAM_SUPPORT_BOT_URL = "https://t.me/Superbigwin959_bot"  # Telegram 客服 
 
 TOPUP_URL = "https://channel4.bigwin959.com/register.html"           # 网站充值 / 加余额页面 URL
 
-CRICKET_STEPS_FILE_ID = "AgACAgUAAxkBAAMdaS8GSrppB7wM7B1G90eUi6CsFrgAAl4Maxuc3XlVmRmu0s87bekBAAMCAAN5AAM2BA"  # 你那张 “৩ ধাপ ১২৫% ক্রিকেট আপগ্রেড” 图片的 file_id
+CRICKET_STEPS_FILE_ID = "AgACAgUAAxkBAAMsaTAYcJvqhZlmp5K_IJtbcr-GvHMAAn8LaxtMyoBVf2gp9OtYFhUBAAMCAAN5AAM2BA"  # 你那张 “৩ ধাপ ১২৫% ক্রিকেট আপগ্রেড” 图片的 file_id
 
 
 # ===================== 下面开始是逻辑代码 =====================
@@ -48,8 +48,6 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 if not BOT_TOKEN:
     raise RuntimeError("BOT_TOKEN is not set")
-
-application = ApplicationBuilder().token(BOT_TOKEN).build()  # ← 换成你的 Bot Token
 
 
 # callback_data 常量
@@ -202,17 +200,17 @@ async def handle_nu_details(update: Update, context: ContextTypes.DEFAULT_TYPE) 
 
     await query.edit_message_text(text=text1)
 
-    # 图片（使用 file_id）
-    # 图片（使用 file_id）
-if CRICKET_STEPS_FILE_ID:
-    try:
-        await context.bot.send_photo(
-            chat_id=query.message.chat_id,
-            photo=CRICKET_STEPS_FILE_ID
-        )
-    except Exception as e:
-        print(f"Error sending photo: {e}")
-
+    # Send photo if file_id is configured
+    # To get file_id: send a photo to your bot and it will reply with the file_id
+    if CRICKET_STEPS_FILE_ID:
+        try:
+            await context.bot.send_photo(
+                chat_id=query.message.chat_id,
+                photo=CRICKET_STEPS_FILE_ID,
+                caption="৩ ধাপে ১২৫% ক্রিকেট আপগ্রেড"
+            )
+        except Exception as e:
+            print(f"Error sending photo: {e}")
 
     # 文字说明 2 + 按钮（新消息）
     await query.message.chat.send_message(
@@ -446,7 +444,7 @@ def main() -> None:
 
     # /start
     app.add_handler(CommandHandler("start", start))
-	app.add_handler(MessageHandler(filters.PHOTO, debug_photo))
+    app.add_handler(MessageHandler(filters.PHOTO, debug_photo))
 
 
     # 新用户 & 已注册入口
